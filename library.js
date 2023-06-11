@@ -1,7 +1,5 @@
 let myLibrary = [];
-
-showFormButton = document.querySelector("#new-book");
-showFormButton.addEventListener("click", showForm);
+displayLibrary();
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -14,8 +12,10 @@ function showForm() {
   let form = document.createElement("div");
   form.setAttribute("id", "add-form");
 
+  //TODO create a popup for the form
+  let main = document.querySelector("main");
   let library = document.querySelector("#library");
-  document.body.insertBefore(form, library);
+  main.insertBefore(form, library);
 
   const bookObject = new Book("test_title", "test_author", 123, true);
   for (let key in bookObject) {
@@ -83,7 +83,7 @@ function displayLibrary() {
 
   myLibrary.forEach((book) => {
     const bookDiv = document.createElement("div");
-    bookDiv.setAttribute("class", "book");
+    bookDiv.setAttribute("class", "book-card");
     bookDiv.setAttribute("data-id", myLibrary.indexOf(book));
 
     for (let key in book) {
@@ -113,6 +113,7 @@ function displayLibrary() {
 
     const removeButton = document.createElement("input");
     removeButton.setAttribute("type", "button");
+    // TODO use icon instead of remove button.
     removeButton.setAttribute("value", "Remove");
     removeButton.addEventListener("click", function () {
       removeBookFromLibrary(bookDiv.getAttribute("data-id"));
@@ -121,6 +122,19 @@ function displayLibrary() {
 
     library.appendChild(bookDiv);
   });
+
+  const addBookDiv = document.createElement("div");
+  addBookDiv.setAttribute("class", "book-card");
+  addBookButton = document.createElement("input");
+  addBookButton.setAttribute("type", "button");
+  // TODO use icon instead of add button.
+  // addBookButton.innerHTML = "<img id='add-book-icon' src='img/add.svg' alt='Add Book'>";
+  addBookButton.setAttribute("value", "Add Book");
+  addBookButton.addEventListener("click", showForm);
+
+  addBookDiv.appendChild(addBookButton);
+
+  library.appendChild(addBookDiv);
 }
 
 function removeBookFromLibrary(index) {

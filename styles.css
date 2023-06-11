@@ -1,0 +1,61 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Merriweather', serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    box-shadow: 0 1px 5px rgb(180, 180, 180);
+    z-index: 1;
+}
+
+.logo>img {
+    height: 50px;
+}
+
+main {
+    flex: auto;
+    background-color: rgb(245, 245, 245);
+}
+
+#add-book-icon {
+    height: 20px;
+}
+
+footer {
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+#gh-link {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+}
+
+#gh-logo {
+    width: 35px;
+    height: 35px;
+    margin: 0 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+#gh-link:hover #gh-logo {
+    transform: rotate(360deg) scale(1.2);
+}
