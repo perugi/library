@@ -87,12 +87,29 @@ function displayLibrary() {
     bookDiv.setAttribute("data-id", myLibrary.indexOf(book));
 
     for (let key in book) {
-      const infoDiv = document.createElement("div");
-      infoDiv.setAttribute("class", `${key}`);
-      infoDiv.textContent = book[key];
+      if (key !== "read") {
+        const infoDiv = document.createElement("div");
+        infoDiv.setAttribute("class", `${key}`);
+        infoDiv.textContent = `${capitalize(key)}: ${book[key]}`;
 
-      bookDiv.appendChild(infoDiv);
+        bookDiv.appendChild(infoDiv);
+      }
     }
+
+    const readLabel = document.createElement("label");
+    readLabel.setAttribute("for", `read-${bookDiv.getAttribute("data-id")}`);
+    readLabel.textContent = "Read:";
+    const toggleReadBox = document.createElement("input");
+    toggleReadBox.setAttribute("type", "checkbox");
+    toggleReadBox.setAttribute("id", `read-${bookDiv.getAttribute("data-id")}`);
+    if (book.read) {
+      toggleReadBox.setAttribute("checked", true);
+    }
+    toggleReadBox.addEventListener("click", function () {
+      toggleRead(bookDiv.getAttribute("data-id"));
+    });
+    bookDiv.appendChild(readLabel);
+    bookDiv.appendChild(toggleReadBox);
 
     const removeButton = document.createElement("input");
     removeButton.setAttribute("type", "button");
@@ -109,5 +126,11 @@ function displayLibrary() {
 function removeBookFromLibrary(index) {
   myLibrary.splice(index, 1);
 
+  displayLibrary();
+}
+
+function toggleRead(index) {
+  console.log(`toggleRead: ${index}`);
+  myLibrary[index].read = !myLibrary[index].read;
   displayLibrary();
 }
