@@ -11,37 +11,30 @@ function Book(title, author, pages, read) {
 }
 
 function showForm() {
-  console.log("show form");
   let form = document.createElement("div");
   form.setAttribute("id", "add-form");
 
   let library = document.querySelector("#library");
   document.body.insertBefore(form, library);
 
-  const titleLabel = document.createElement("label");
-  titleLabel.setAttribute("for", "title");
-  titleLabel.textContent = "Title";
-  const title = document.createElement("input");
-  title.setAttribute("id", "title");
+  const bookObject = new Book("test_title", "test_author", 123, true);
+  for (let key in bookObject) {
+    const keyLabel = document.createElement("label");
+    keyLabel.setAttribute("for", key);
+    keyLabel.textContent = `${capitalize(key)}:`;
+    const inputElement = document.createElement("input");
+    inputElement.setAttribute("id", key);
+    if (key === "pages") {
+      inputElement.setAttribute("type", "number");
+      inputElement.setAttribute("min", "1");
+    }
+    if (key === "read") {
+      inputElement.setAttribute("type", "checkbox");
+    }
 
-  const authorLabel = document.createElement("label");
-  authorLabel.setAttribute("for", "author");
-  authorLabel.textContent = "Author";
-  const author = document.createElement("input");
-  author.setAttribute("id", "author");
-
-  const pagesLabel = document.createElement("label");
-  pagesLabel.setAttribute("for", "pages");
-  pagesLabel.textContent = "Pages";
-  const pages = document.createElement("input");
-  pages.setAttribute("id", "pages");
-
-  const readLabel = document.createElement("label");
-  readLabel.setAttribute("for", "read");
-  readLabel.textContent = "Read";
-  const read = document.createElement("input");
-  read.setAttribute("id", "read");
-  read.setAttribute("type", "checkbox");
+    form.appendChild(keyLabel);
+    form.appendChild(inputElement);
+  }
 
   const addBookButton = document.createElement("input");
   addBookButton.setAttribute("id", "add-book");
@@ -55,35 +48,66 @@ function showForm() {
   closeButton.setAttribute("value", "Close");
   closeButton.addEventListener("click", closeForm);
 
-  form.appendChild(titleLabel);
-  form.appendChild(title);
-  form.appendChild(authorLabel);
-  form.appendChild(author);
-  form.appendChild(pagesLabel);
-  form.appendChild(pages);
-  form.appendChild(readLabel);
-  form.appendChild(read);
   form.appendChild(addBookButton);
   form.appendChild(closeButton);
 }
 
-function closeForm() {
-  console.log("close form");
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
+function closeForm() {
   let form = document.querySelector("#add-form");
 
   form.remove();
 }
 
 function addBookToLibrary() {
-  console.log("book added!");
-
   let title = document.querySelector("#title").value;
   let author = document.querySelector("#author").value;
   let pages = document.querySelector("#pages").value;
   let read = document.querySelector("#read").checked;
 
   myLibrary.push(new Book(title, author, pages, read));
+
+  closeForm();
+  displayLibrary();
 }
 
-function displayLibrary() {}
+function displayLibrary() {
+  const library = document.querySelector("#library");
+
+  while (library.firstChild) {
+    library.removeChild(library.firstChild);
+  }
+
+  myLibrary.forEach((book) => {
+    const bookDiv = document.createElement("div");
+    bookDiv.setAttribute("class", "book");
+    bookDiv.setAttribute("data-id", myLibrary.indexOf(book));
+
+    for (let key in book) {
+      const infoDiv = document.createElement("div");
+      infoDiv.setAttribute("class", `${key}`);
+      infoDiv.textContent = book[key];
+
+      bookDiv.appendChild(infoDiv);
+    }
+
+    const removeButton = document.createElement("input");
+    removeButton.setAttribute("type", "button");
+    removeButton.setAttribute("value", "Remove");
+    removeButton.addEventListener("click", function () {
+      removeBookFromLibrary(bookDiv.getAttribute("data-id"));
+    });
+    bookDiv.appendChild(removeButton);
+
+    library.appendChild(bookDiv);
+  });
+}
+
+function removeBookFromLibrary(index) {
+  myLibrary.splice(index, 1);
+
+  displayLibrary();
+}
