@@ -1,4 +1,16 @@
 let myLibrary = [];
+myLibrary = [
+  new Book("title1", "author1", 100, true),
+  new Book("title2", "author2", 200, false),
+  new Book("title3", "author3", 300, true),
+  new Book("title4", "author4", 400, false),
+  new Book(
+    "this is a very long book title that might be a problem for layout",
+    "author4",
+    400,
+    false
+  ),
+];
 displayLibrary();
 
 function Book(title, author, pages, read) {
@@ -86,6 +98,15 @@ function displayLibrary() {
     bookDiv.setAttribute("class", "book-card");
     bookDiv.setAttribute("data-id", myLibrary.indexOf(book));
 
+    const removeButton = document.createElement("img");
+    removeButton.setAttribute("class", "remove-button");
+    removeButton.setAttribute("src", "img/remove.svg");
+    // TODO use icon instead of remove button.
+    removeButton.addEventListener("click", function () {
+      removeBookFromLibrary(bookDiv.getAttribute("data-id"));
+    });
+    bookDiv.appendChild(removeButton);
+
     for (let key in book) {
       if (key !== "read") {
         const infoDiv = document.createElement("div");
@@ -111,26 +132,15 @@ function displayLibrary() {
     bookDiv.appendChild(readLabel);
     bookDiv.appendChild(toggleReadBox);
 
-    const removeButton = document.createElement("input");
-    removeButton.setAttribute("type", "button");
-    // TODO use icon instead of remove button.
-    removeButton.setAttribute("value", "Remove");
-    removeButton.addEventListener("click", function () {
-      removeBookFromLibrary(bookDiv.getAttribute("data-id"));
-    });
-    bookDiv.appendChild(removeButton);
-
     library.appendChild(bookDiv);
   });
 
   const addBookDiv = document.createElement("div");
-  addBookDiv.setAttribute("class", "book-card");
-  addBookButton = document.createElement("input");
-  addBookButton.setAttribute("type", "button");
-  // TODO use icon instead of add button.
-  // addBookButton.innerHTML = "<img id='add-book-icon' src='img/add.svg' alt='Add Book'>";
-  addBookButton.setAttribute("value", "Add Book");
-  addBookButton.addEventListener("click", showForm);
+  addBookDiv.setAttribute("class", "book-card new-book");
+  addBookButton = document.createElement("img");
+  addBookButton.setAttribute("src", "img/add.svg");
+  addBookButton.setAttribute("class", "add-button gray-filter");
+  addBookDiv.addEventListener("click", showForm);
 
   addBookDiv.appendChild(addBookButton);
 
