@@ -45,7 +45,7 @@ main {
 }
 
 .book-card {
-    border: 1px solid black;
+    box-shadow: 0 1px 5px rgb(180, 180, 180);
     background-color: rgb(255, 255, 255);
     padding: 10px;
     width: 200px;
@@ -64,24 +64,42 @@ main {
 
 .add-button {
     height: 40px;
+    filter: invert(42%) sepia(1%) saturate(0%) hue-rotate(167deg) brightness(92%) contrast(95%);
+    transition: 0.5s;
+}
+
+.add-button:hover {
+    filter: invert(0%) sepia(4%) saturate(7485%) hue-rotate(162deg) brightness(103%) contrast(105%);
+    transition: 0.5s;
 }
 
 .remove-button {
     float: right;
     margin: 0 0 10px 10px;
     height: 40px;
+    filter: invert(42%) sepia(1%) saturate(0%) hue-rotate(167deg) brightness(92%) contrast(95%);
+    transition: 0.5s;
 }
 
 .remove-button:hover {
     cursor: pointer;
+    filter: invert(0%) sepia(4%) saturate(7485%) hue-rotate(162deg) brightness(103%) contrast(105%);
+    transition: 0.5s;
 }
 
-.gray-filter {
-    filter: invert(42%) sepia(1%) saturate(0%) hue-rotate(167deg) brightness(92%) contrast(95%);
+.book-card>div {
+    margin-bottom: 15px;
+}
+
+.info-key {
+    color: rgb(100, 100, 100)
 }
 
 
 footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .material-symbols-outlined {
@@ -97,6 +115,7 @@ footer {
     color: black;
     display: flex;
     align-items: center;
+    margin: 10px 0;
 }
 
 #gh-logo {
@@ -108,4 +127,8 @@ footer {
 
 #gh-link:hover #gh-logo {
     transform: rotate(360deg) scale(1.2);
+}
+
+.attribute {
+    font-size: 14px;
 }

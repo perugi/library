@@ -111,7 +111,9 @@ function displayLibrary() {
       if (key !== "read") {
         const infoDiv = document.createElement("div");
         infoDiv.setAttribute("class", `${key}`);
-        infoDiv.textContent = `${capitalize(key)}: ${book[key]}`;
+        infoDiv.innerHTML = `<span class="info-key">${capitalize(
+          key
+        )}:</span> ${book[key]}`;
 
         bookDiv.appendChild(infoDiv);
       }
@@ -119,7 +121,7 @@ function displayLibrary() {
 
     const readLabel = document.createElement("label");
     readLabel.setAttribute("for", `read-${bookDiv.getAttribute("data-id")}`);
-    readLabel.textContent = "Read:";
+    readLabel.innerHTML = "<span class='info-key'>Read:</span>";
     const toggleReadBox = document.createElement("input");
     toggleReadBox.setAttribute("type", "checkbox");
     toggleReadBox.setAttribute("id", `read-${bookDiv.getAttribute("data-id")}`);
