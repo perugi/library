@@ -21,47 +21,49 @@ function Book(title, author, pages, read) {
 }
 
 function showForm() {
-  let form = document.createElement("div");
-  form.setAttribute("id", "add-form");
+  const modal = document.querySelector("#add-book-modal");
+  modal.style.display = "flex";
+  // let form = document.createElement("div");
+  // form.setAttribute("id", "add-form");
 
-  //TODO create a popup for the form
-  let main = document.querySelector("main");
-  let library = document.querySelector("#library");
-  main.insertBefore(form, library);
+  // //TODO create a popup for the form
+  // let main = document.querySelector("main");
+  // let library = document.querySelector("#library");
+  // main.insertBefore(form, library);
 
-  const bookObject = new Book("test_title", "test_author", 123, true);
-  for (let key in bookObject) {
-    const keyLabel = document.createElement("label");
-    keyLabel.setAttribute("for", key);
-    keyLabel.textContent = `${capitalize(key)}:`;
-    const inputElement = document.createElement("input");
-    inputElement.setAttribute("id", key);
-    if (key === "pages") {
-      inputElement.setAttribute("type", "number");
-      inputElement.setAttribute("min", "1");
-    }
-    if (key === "read") {
-      inputElement.setAttribute("type", "checkbox");
-    }
+  // const bookObject = new Book("test_title", "test_author", 123, true);
+  // for (let key in bookObject) {
+  //   const keyLabel = document.createElement("label");
+  //   keyLabel.setAttribute("for", key);
+  //   keyLabel.textContent = `${capitalize(key)}:`;
+  //   const inputElement = document.createElement("input");
+  //   inputElement.setAttribute("id", key);
+  //   if (key === "pages") {
+  //     inputElement.setAttribute("type", "number");
+  //     inputElement.setAttribute("min", "1");
+  //   }
+  //   if (key === "read") {
+  //     inputElement.setAttribute("type", "checkbox");
+  //   }
 
-    form.appendChild(keyLabel);
-    form.appendChild(inputElement);
-  }
+  //   form.appendChild(keyLabel);
+  //   form.appendChild(inputElement);
+  // }
 
-  const addBookButton = document.createElement("input");
-  addBookButton.setAttribute("id", "add-book");
-  addBookButton.setAttribute("type", "button");
-  addBookButton.setAttribute("value", "Add Book");
-  addBookButton.addEventListener("click", addBookToLibrary);
+  // const addBookButton = document.createElement("input");
+  // addBookButton.setAttribute("id", "add-book");
+  // addBookButton.setAttribute("type", "button");
+  // addBookButton.setAttribute("value", "Add Book");
+  // addBookButton.addEventListener("click", addBookToLibrary);
 
-  const closeButton = document.createElement("input");
-  closeButton.setAttribute("id", "add-book");
-  closeButton.setAttribute("type", "button");
-  closeButton.setAttribute("value", "Close");
-  closeButton.addEventListener("click", closeForm);
+  // const closeButton = document.createElement("input");
+  // closeButton.setAttribute("id", "add-book");
+  // closeButton.setAttribute("type", "button");
+  // closeButton.setAttribute("value", "Close");
+  // closeButton.addEventListener("click", closeForm);
 
-  form.appendChild(addBookButton);
-  form.appendChild(closeButton);
+  // form.appendChild(addBookButton);
+  // form.appendChild(closeButton);
 }
 
 function capitalize(str) {
