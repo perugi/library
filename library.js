@@ -1,16 +1,16 @@
 let myLibrary = [];
-myLibrary = [
-  new Book("title1", "author1", 100, true),
-  new Book("title2", "author2", 200, false),
-  new Book("title3", "author3", 300, true),
-  new Book("title4", "author4", 400, false),
-  new Book(
-    "this is a very long book title that might be a problem for layout",
-    "author4",
-    400,
-    false
-  ),
-];
+// myLibrary = [
+//   new Book("title1", "author1", 100, true),
+//   new Book("title2", "author2", 200, false),
+//   new Book("title3", "author3", 300, true),
+//   new Book("title4", "author4", 400, false),
+//   new Book(
+//     "this is a very long book title that might be a problem for layout",
+//     "author4",
+//     400,
+//     false
+//   ),
+// ];
 displayLibrary();
 
 function Book(title, author, pages, read) {
