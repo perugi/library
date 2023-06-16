@@ -23,66 +23,40 @@ function Book(title, author, pages, read) {
 function showForm() {
   const modal = document.querySelector("#add-book-modal");
   modal.style.display = "flex";
-  // let form = document.createElement("div");
-  // form.setAttribute("id", "add-form");
-
-  // //TODO create a popup for the form
-  // let main = document.querySelector("main");
-  // let library = document.querySelector("#library");
-  // main.insertBefore(form, library);
-
-  // const bookObject = new Book("test_title", "test_author", 123, true);
-  // for (let key in bookObject) {
-  //   const keyLabel = document.createElement("label");
-  //   keyLabel.setAttribute("for", key);
-  //   keyLabel.textContent = `${capitalize(key)}:`;
-  //   const inputElement = document.createElement("input");
-  //   inputElement.setAttribute("id", key);
-  //   if (key === "pages") {
-  //     inputElement.setAttribute("type", "number");
-  //     inputElement.setAttribute("min", "1");
-  //   }
-  //   if (key === "read") {
-  //     inputElement.setAttribute("type", "checkbox");
-  //   }
-
-  //   form.appendChild(keyLabel);
-  //   form.appendChild(inputElement);
-  // }
-
-  // const addBookButton = document.createElement("input");
-  // addBookButton.setAttribute("id", "add-book");
-  // addBookButton.setAttribute("type", "button");
-  // addBookButton.setAttribute("value", "Add Book");
-  // addBookButton.addEventListener("click", addBookToLibrary);
-
-  // const closeButton = document.createElement("input");
-  // closeButton.setAttribute("id", "add-book");
-  // closeButton.setAttribute("type", "button");
-  // closeButton.setAttribute("value", "Close");
-  // closeButton.addEventListener("click", closeForm);
-
-  // form.appendChild(addBookButton);
-  // form.appendChild(closeButton);
-}
-
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function closeForm() {
-  let form = document.querySelector("#add-form");
+  const modal = document.querySelector("#add-book-modal");
+  modal.style.display = "none";
 
-  form.remove();
+  const title = document.querySelector("#title-form");
+  const author = document.querySelector("#author-form");
+  const pages = document.querySelector("#pages-form");
+  const read = document.querySelector("#read-form");
+
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  read.checked = false;
 }
 
-function addBookToLibrary() {
-  let title = document.querySelector("#title").value;
-  let author = document.querySelector("#author").value;
-  let pages = document.querySelector("#pages").value;
-  let read = document.querySelector("#read").checked;
+window.addEventListener("mousedown", (event) => {
+  const modal = document.querySelector("#add-book-modal");
+  if (event.target == modal) {
+    closeForm();
+  }
+});
 
-  myLibrary.push(new Book(title, author, pages, read));
+function addBookToLibrary() {
+  console.log("addBookToLibrary");
+  const title = document.querySelector("#title-form");
+  const author = document.querySelector("#author-form");
+  const pages = document.querySelector("#pages-form");
+  const read = document.querySelector("#read-form");
+
+  myLibrary.push(
+    new Book(title.value, author.value, pages.value, read.checked)
+  );
 
   closeForm();
   displayLibrary();
@@ -161,4 +135,8 @@ function toggleRead(index) {
   console.log(`toggleRead: ${index}`);
   myLibrary[index].read = !myLibrary[index].read;
   displayLibrary();
+}
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
