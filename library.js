@@ -77,7 +77,6 @@ function displayLibrary() {
     const removeButton = document.createElement("img");
     removeButton.setAttribute("class", "remove-button");
     removeButton.setAttribute("src", "img/remove.svg");
-    // TODO use icon instead of remove button.
     removeButton.addEventListener("click", function () {
       removeBookFromLibrary(bookDiv.getAttribute("data-id"));
     });
