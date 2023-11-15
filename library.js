@@ -1,23 +1,36 @@
-let myLibrary = [];
-// myLibrary = [
-//   new Book("title1", "author1", 100, true),
-//   new Book("title2", "author2", 200, false),
-//   new Book("title3", "author3", 300, true),
-//   new Book("title4", "author4", 400, false),
-//   new Book(
-//     "this is a very long book title that might be a problem for layout",
-//     "author4",
-//     400,
-//     false
-//   ),
-// ];
-displayLibrary();
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+  toggleRead() {
+    this.read = !this.read;
+  }
+
+  static capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+}
+
+class Library {
+  constructor() {
+    this.books = [];
+  }
+
+  addBook(book) {
+    this.books.push(book);
+  }
+
+  removeBookByIndex(index) {
+    this.books.splice(index, 1);
+  }
+
+  getBooks() {
+    return this.books;
+  }
 }
 
 function showForm() {
@@ -54,7 +67,7 @@ function addBookToLibrary() {
   const pages = document.querySelector("#pages-form");
   const read = document.querySelector("#read-form");
 
-  myLibrary.push(
+  myLibrary.addBook(
     new Book(title.value, author.value, pages.value, read.checked)
   );
 
@@ -69,10 +82,10 @@ function displayLibrary() {
     library.removeChild(library.firstChild);
   }
 
-  myLibrary.forEach((book) => {
+  myLibrary.getBooks().forEach((book) => {
     const bookDiv = document.createElement("div");
     bookDiv.setAttribute("class", "book-card");
-    bookDiv.setAttribute("data-id", myLibrary.indexOf(book));
+    bookDiv.setAttribute("data-id", myLibrary.getBooks().indexOf(book));
 
     const removeButton = document.createElement("img");
     removeButton.setAttribute("class", "remove-button");
@@ -86,7 +99,7 @@ function displayLibrary() {
       if (key !== "read") {
         const infoDiv = document.createElement("div");
         infoDiv.setAttribute("class", `${key}`);
-        infoDiv.innerHTML = `<span class="info-key">${capitalize(
+        infoDiv.innerHTML = `<span class="info-key">${Book.capitalize(
           key
         )}:</span> ${book[key]}`;
 
@@ -125,17 +138,28 @@ function displayLibrary() {
 }
 
 function removeBookFromLibrary(index) {
-  myLibrary.splice(index, 1);
-
+  myLibrary.removeBookByIndex(index);
   displayLibrary();
 }
 
 function toggleRead(index) {
-  console.log(`toggleRead: ${index}`);
-  myLibrary[index].read = !myLibrary[index].read;
+  myLibrary[index].toggleRead();
   displayLibrary();
 }
 
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
+myLibrary = new Library();
+
+myLibrary.addBook(new Book("title1", "author1", 100, true));
+myLibrary.addBook(new Book("title2", "author2", 200, false));
+myLibrary.addBook(new Book("title3", "author3", 300, true));
+myLibrary.addBook(new Book("title4", "author4", 400, false));
+myLibrary.addBook(
+  new Book(
+    "this is a very long book title that might be a problem for layout",
+    "author4",
+    400,
+    false
+  )
+);
+
+displayLibrary();
