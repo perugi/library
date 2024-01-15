@@ -60,12 +60,30 @@ window.addEventListener("mousedown", (event) => {
   }
 });
 
+const title = document.querySelector("#title-form");
+const author = document.querySelector("#author-form");
+const pages = document.querySelector("#pages-form");
+
 function addBookToLibrary() {
-  console.log("addBookToLibrary");
-  const title = document.querySelector("#title-form");
-  const author = document.querySelector("#author-form");
-  const pages = document.querySelector("#pages-form");
   const read = document.querySelector("#read-form");
+
+  if (title.validity.valueMissing) {
+    title.setCustomValidity("Please enter a title");
+    title.reportValidity();
+    return;
+  }
+
+  if (author.validity.valueMissing) {
+    author.setCustomValidity("Please enter an author");
+    author.reportValidity();
+    return;
+  }
+
+  if (pages.validity.valueMissing) {
+    pages.setCustomValidity("Please enter the number of pages");
+    pages.reportValidity();
+    return;
+  }
 
   myLibrary.addBook(
     new Book(title.value, author.value, pages.value, read.checked)
@@ -73,6 +91,14 @@ function addBookToLibrary() {
 
   closeForm();
   displayLibrary();
+}
+
+title.addEventListener("input", () => clearErrorMessage(title));
+author.addEventListener("input", () => clearErrorMessage(author));
+pages.addEventListener("input", () => clearErrorMessage(pages));
+
+function clearErrorMessage(element) {
+  element.setCustomValidity("");
 }
 
 function displayLibrary() {
